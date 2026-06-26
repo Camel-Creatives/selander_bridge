@@ -1,5 +1,8 @@
 # selander_bridge
 
+[![PyPI version](https://badge.fury.io/py/selander-bridge.svg)](https://pypi.org/project/selander-bridge/)
+[![GitHub Repo](https://img.shields.io/badge/GitHub-Camel--Creatives%2Fselander__bridge-blue?logo=github)](https://github.com/Camel-Creatives/selander_bridge)
+
 A small, reusable Python library that bridges your apps to Google accounts
 and Google Workspace services (Drive, Contacts, more to come) - built once,
 imported everywhere, with **no server you have to host** for auth.
