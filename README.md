@@ -24,12 +24,8 @@ you can skip browser login entirely with `ServiceAccountAuthManager`
 ## Install
 
 ```bash
-pip install -e .
+pip install selander-bridge
 ```
-
-(Once you're happy with it, `pip install build twine` and publish it to
-your own PyPI-compatible index or a private Git URL so other projects can
-`pip install` it directly.)
 
 ## One-time Google Cloud setup
 
