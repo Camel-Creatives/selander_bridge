@@ -1,5 +1,5 @@
 """
-sarenda_bridge
+selander_bridge
 ===============
 
 A reusable bridge between Python apps and Google Workspace APIs
@@ -7,7 +7,7 @@ A reusable bridge between Python apps and Google Workspace APIs
 
 Quick start (personal / per-developer Google accounts, no hosting needed):
 
-    from sarenda_bridge import GoogleAuthManager, ContactsClient, DriveClient
+    from selander_bridge import GoogleAuthManager, ContactsClient, DriveClient
 
     auth = GoogleAuthManager(
         client_secrets_file="client_secret.json",
@@ -24,7 +24,7 @@ Quick start (personal / per-developer Google accounts, no hosting needed):
 
 Quick start (Google Workspace org you administer, zero browser interaction):
 
-    from sarenda_bridge import ServiceAccountAuthManager, DriveClient
+    from selander_bridge import ServiceAccountAuthManager, DriveClient
 
     auth = ServiceAccountAuthManager(
         service_account_file="service_account.json",
@@ -40,7 +40,7 @@ from .drive import DriveClient
 from .exceptions import (
     AuthenticationError,
     MissingClientSecretsError,
-    SarendaBridgeError,
+    SelanderBridgeError,
 )
 
 __version__ = "0.1.0"
@@ -52,7 +52,7 @@ __all__ = [
     "BaseService",
     "ContactsClient",
     "DriveClient",
-    "SarendaBridgeError",
+    "SelanderBridgeError",
     "AuthenticationError",
     "MissingClientSecretsError",
 ]

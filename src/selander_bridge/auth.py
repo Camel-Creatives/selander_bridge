@@ -1,5 +1,5 @@
 """
-Authentication for sarenda_bridge.
+Authentication for selander_bridge.
 
 The design goal here is specifically to avoid the "I need a hosted server
 just to catch an OAuth redirect" problem. Instead of the web-application
@@ -12,7 +12,7 @@ URL), this uses Google's installed-app / loopback flow:
        free port, and torn down immediately after -- receives the
        authorization code and finishes the token exchange.
     4. The resulting refresh token is cached to disk (via TokenStore) so
-       every later run, in any app that imports sarenda_bridge and uses the
+       every later run, in any app that imports selander_bridge and uses the
        same `account_key`, picks the cached token up and never prompts again.
 
 No server needs to be deployed or kept running anywhere for this to work.
@@ -45,9 +45,9 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 
 from .exceptions import AuthenticationError, MissingClientSecretsError
 
-logger = logging.getLogger("sarenda_bridge.auth")
+logger = logging.getLogger("selander_bridge.auth")
 
-DEFAULT_TOKEN_DIR = Path.home() / ".sarenda_bridge" / "tokens"
+DEFAULT_TOKEN_DIR = Path.home() / ".selander_bridge" / "tokens"
 
 
 class TokenStore:
@@ -55,7 +55,7 @@ class TokenStore:
     Pluggable storage for cached OAuth credentials.
 
     Default implementation is one JSON file per `account_key` under
-    ~/.sarenda_bridge/tokens/. Swap this out (same 3 methods) for a
+    ~/.selander_bridge/tokens/. Swap this out (same 3 methods) for a
     database- or keyring-backed store in a multi-user server app.
     """
 

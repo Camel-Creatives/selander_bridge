@@ -6,7 +6,7 @@ from typing import Any, Sequence
 from googleapiclient.discovery import build, Resource
 from googleapiclient.errors import HttpError
 
-from .exceptions import SarendaBridgeError
+from .exceptions import SelanderBridgeError
 
 
 class BaseService:
@@ -39,13 +39,13 @@ class BaseService:
 
 
 def wrap_http_errors(func):
-    """Decorator that turns raw googleapiclient HttpError into a SarendaBridgeError."""
+    """Decorator that turns raw googleapiclient HttpError into a SelanderBridgeError."""
 
     def _wrapped(*args, **kwargs):
         try:
             return func(*args, **kwargs)
         except HttpError as exc:
-            raise SarendaBridgeError(f"Google API call failed: {exc}") from exc
+            raise SelanderBridgeError(f"Google API call failed: {exc}") from exc
 
     _wrapped.__name__ = func.__name__
     _wrapped.__doc__ = func.__doc__

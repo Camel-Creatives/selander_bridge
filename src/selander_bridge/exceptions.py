@@ -1,13 +1,13 @@
-"""Exceptions raised by sarenda_bridge."""
+"""Exceptions raised by selander_bridge."""
 
 
-class SarendaBridgeError(Exception):
+class SelanderBridgeError(Exception):
     """Base class for every error raised by this library."""
 
 
-class AuthenticationError(SarendaBridgeError):
+class AuthenticationError(SelanderBridgeError):
     """Raised when acquiring or refreshing Google credentials fails."""
 
 
-class MissingClientSecretsError(SarendaBridgeError):
+class MissingClientSecretsError(SelanderBridgeError):
     """Raised when no client_secrets file/dict was supplied and none can be found."""

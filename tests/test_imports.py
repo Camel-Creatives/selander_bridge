@@ -1,27 +1,27 @@
 """
-Smoke tests for sarenda_bridge. These never touch the network — they verify
+Smoke tests for selander_bridge. These never touch the network - they verify
 imports, class shapes, and the auth/token-store plumbing using fakes.
 """
 from unittest.mock import MagicMock, patch
 
 import pytest
 
-from sarenda_bridge import (
+from selander_bridge import (
     AuthenticationError,
     ContactsClient,
     DriveClient,
     GoogleAuthManager,
+    SelanderBridgeError,
     ServiceAccountAuthManager,
     TokenStore,
-    SarendaBridgeError,
 )
-from sarenda_bridge.exceptions import MissingClientSecretsError
+from selander_bridge.exceptions import MissingClientSecretsError
 
 
 def test_public_exports_importable():
     assert GoogleAuthManager and ServiceAccountAuthManager and TokenStore
     assert ContactsClient and DriveClient
-    assert AuthenticationError and SarendaBridgeError
+    assert AuthenticationError and SelanderBridgeError
 
 
 def test_contacts_client_has_expected_scope():
@@ -97,11 +97,11 @@ def test_base_service_builds_resource_lazily():
     fake_auth = MagicMock()
     fake_auth.get_credentials.return_value = "fake-creds"
 
-    with patch("sarenda_bridge.base.build") as mock_build:
+    with patch("selander_bridge.base.build") as mock_build:
         mock_build.return_value = "fake-resource"
         client = DriveClient(fake_auth, account="me@example.com")
 
-        # Not called yet — lazy.
+        # Not called yet - lazy.
         fake_auth.get_credentials.assert_not_called()
 
         resource = client.service
