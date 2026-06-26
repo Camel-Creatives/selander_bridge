@@ -1,12 +1,12 @@
 """Wrapper around the Google People API (Contacts)."""
 from __future__ import annotations
 
-from typing import Iterator, Optional
+from typing import Any, Iterator, Optional
 
 from .base import BaseService, wrap_http_errors
 
-# Read-only is the safer default; switch to the full "contacts" scope
-# if your app also needs to create/update contacts.
+# Read-only is the safer default. Write operations need the full "contacts"
+# scope, so callers can opt in only when they need CRUD.
 SCOPE_CONTACTS_READONLY = "https://www.googleapis.com/auth/contacts.readonly"
 SCOPE_CONTACTS = "https://www.googleapis.com/auth/contacts"
 
@@ -19,6 +19,9 @@ class ContactsClient(BaseService):
         contacts = ContactsClient(auth, account="me@gmail.com")
         for person in contacts.list_contacts():
             print(person.get("names"))
+
+    By default this client is read-only. To use create/update/delete methods,
+    include `SCOPE_CONTACTS` in the auth manager's scope list.
     """
 
     api_name = "people"
@@ -68,9 +71,53 @@ class ContactsClient(BaseService):
             yield result.get("person", {})
 
     @wrap_http_errors
-    def create_contact(self, *, given_name: str, family_name: str = "", email: Optional[str] = None) -> dict:
-        """Requires the full SCOPE_CONTACTS scope, not just readonly."""
-        body: dict = {"names": [{"givenName": given_name, "familyName": family_name}]}
-        if email:
-            body["emailAddresses"] = [{"value": email}]
+    def create_contact(
+        self,
+        *,
+        body: Optional[dict[str, Any]] = None,
+        given_name: Optional[str] = None,
+        family_name: str = "",
+        email: Optional[str] = None,
+    ) -> dict:
+        """
+        Create a new contact.
+
+        You can pass a raw People API `body`, or use the simple name/email
+        helpers for common cases.
+        """
+        if body is None:
+            if not given_name:
+                raise ValueError("Either body or given_name must be provided")
+            body = {"names": [{"givenName": given_name, "familyName": family_name}]}
+            if email:
+                body["emailAddresses"] = [{"value": email}]
         return self.service.people().createContact(body=body).execute()
+
+    @wrap_http_errors
+    def update_contact(
+        self,
+        resource_name: str,
+        *,
+        body: dict[str, Any],
+        update_person_fields: str,
+    ) -> dict:
+        """
+        Update an existing contact.
+
+        `update_person_fields` should be a comma-separated field mask such as
+        "names,emailAddresses".
+        """
+        return (
+            self.service.people()
+            .updateContact(
+                resourceName=resource_name,
+                updatePersonFields=update_person_fields,
+                body=body,
+            )
+            .execute()
+        )
+
+    @wrap_http_errors
+    def delete_contact(self, resource_name: str) -> None:
+        """Delete a contact by People API resource name."""
+        self.service.people().deleteContact(resourceName=resource_name).execute()

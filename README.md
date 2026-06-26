@@ -1,7 +1,7 @@
 # selander_bridge
 
 A small, reusable Python library that bridges your apps to Google accounts
-and Google Workspace services (Drive, Contacts, more to come) — built once,
+and Google Workspace services (Drive, Contacts, more to come) - built once,
 imported everywhere, with **no server you have to host** for auth.
 
 ## Why this exists
@@ -42,17 +42,36 @@ your own PyPI-compatible index or a private Git URL so other projects can
 ## Usage
 
 ```python
-from selander_bridge import GoogleAuthManager, ContactsClient, DriveClient
+from selander_bridge import (
+    ContactsClient,
+    DriveClient,
+    GoogleAuthManager,
+    SCOPE_CONTACTS,
+)
 
 auth = GoogleAuthManager(
     client_secrets_file="client_secret.json",
-    scopes=[*ContactsClient.scopes, *DriveClient.scopes],
+    scopes=[*ContactsClient.scopes, *DriveClient.scopes, SCOPE_CONTACTS],
 )
 
 # First call opens a browser once; after that, the cached token is reused.
 contacts = ContactsClient(auth, account="me@gmail.com")
 for person in contacts.list_contacts():
     print(person.get("names"))
+
+created = contacts.create_contact(
+    given_name="Ada",
+    family_name="Lovelace",
+    email="ada@example.com",
+)
+
+contacts.update_contact(
+    created["resourceName"],
+    body={"names": [{"givenName": "Ada", "familyName": "Byron"}]},
+    update_person_fields="names",
+)
+
+contacts.delete_contact(created["resourceName"])
 
 drive = DriveClient(auth, account="me@gmail.com")
 drive.upload_file("report.pdf", name="Q2 Report.pdf")

@@ -112,3 +112,49 @@ def test_base_service_builds_resource_lazily():
         # Second access should not rebuild.
         _ = client.service
         mock_build.assert_called_once()
+
+
+def test_contacts_create_update_delete_use_people_api_methods():
+    fake_auth = MagicMock()
+    client = ContactsClient(fake_auth, account="me@example.com")
+
+    fake_people = MagicMock()
+    fake_connections = MagicMock()
+    fake_people.connections.return_value = fake_connections
+    fake_service = MagicMock()
+    fake_service.people.return_value = fake_people
+    client._service = fake_service
+
+    create_request = MagicMock()
+    update_request = MagicMock()
+    delete_request = MagicMock()
+    fake_people.createContact.return_value = create_request
+    fake_people.updateContact.return_value = update_request
+    fake_people.deleteContact.return_value = delete_request
+    create_request.execute.return_value = {"resourceName": "people/c1"}
+    update_request.execute.return_value = {"resourceName": "people/c1"}
+    delete_request.execute.return_value = None
+
+    created = client.create_contact(given_name="Ada", family_name="Lovelace", email="ada@example.com")
+    assert created == {"resourceName": "people/c1"}
+    fake_people.createContact.assert_called_once_with(
+        body={
+            "names": [{"givenName": "Ada", "familyName": "Lovelace"}],
+            "emailAddresses": [{"value": "ada@example.com"}],
+        }
+    )
+
+    updated = client.update_contact(
+        "people/c1",
+        body={"names": [{"givenName": "Ada", "familyName": "Byron"}]},
+        update_person_fields="names",
+    )
+    assert updated == {"resourceName": "people/c1"}
+    fake_people.updateContact.assert_called_once_with(
+        resourceName="people/c1",
+        updatePersonFields="names",
+        body={"names": [{"givenName": "Ada", "familyName": "Byron"}]},
+    )
+
+    assert client.delete_contact("people/c1") is None
+    fake_people.deleteContact.assert_called_once_with(resourceName="people/c1")

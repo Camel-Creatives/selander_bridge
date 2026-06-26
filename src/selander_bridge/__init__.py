@@ -35,7 +35,7 @@ Quick start (Google Workspace org you administer, zero browser interaction):
 
 from .auth import GoogleAuthManager, ServiceAccountAuthManager, TokenStore
 from .base import BaseService
-from .contacts import ContactsClient
+from .contacts import ContactsClient, SCOPE_CONTACTS, SCOPE_CONTACTS_READONLY
 from .drive import DriveClient
 from .exceptions import (
     AuthenticationError,
@@ -51,6 +51,8 @@ __all__ = [
     "TokenStore",
     "BaseService",
     "ContactsClient",
+    "SCOPE_CONTACTS",
+    "SCOPE_CONTACTS_READONLY",
     "DriveClient",
     "SelanderBridgeError",
     "AuthenticationError",
