@@ -22,7 +22,8 @@ It defaults to Google's **installed-app / loopback flow**, capturing the redirec
 
 Check out the following guides to start using `selander_bridge`:
 
-1. **[Authentication Guide](auth.md)**: Learn how to configure OAuth and Service Account authentication.
-2. **[Contacts API Guide](contacts.md)**: Manage Google Contacts.
-3. **[Drive API Guide](drive.md)**: Manage files and folders in Google Drive.
-4. **[Extending the Library](extending.md)**: Learn how to add support for more Google Workspace APIs.
+1. **[Google Cloud Setup Guide](cloud_setup.md)**: Start here! Learn how to create your credentials, enable APIs, and add test users.
+2. **[Authentication Guide](auth.md)**: Learn how to configure OAuth and Service Account authentication.
+3. **[Contacts API Guide](contacts.md)**: Manage Google Contacts.
+4. **[Drive API Guide](drive.md)**: Manage files and folders in Google Drive.
+5. **[Extending the Library](extending.md)**: Learn how to add support for more Google Workspace APIs.

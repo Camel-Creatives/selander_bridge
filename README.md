@@ -30,14 +30,10 @@ your own PyPI-compatible index or a private Git URL so other projects can
 
 ## One-time Google Cloud setup
 
-1. Create/select a project at console.cloud.google.com.
-2. Enable the **Drive API** and **People API**.
-3. Create OAuth client credentials of type **Desktop app** (not "Web
-   application" — that's what forces hosting). Download the JSON as
-   `client_secret.json`.
-4. (Personal Gmail accounts) On the OAuth consent screen, add yourself as
-   a test user, or publish the app if you'll use this with other people's
-   accounts.
+Before running your code, you must configure a Google Cloud project to get your `client_secret.json` and enable the APIs you plan to use. **If you skip enabling the APIs, your code will crash.**
+
+Please follow our detailed step-by-step guide:
+👉 **[Google Cloud Setup Guide](docs/cloud_setup.md)**
 
 ## Usage
 
