@@ -1,0 +1,14 @@
+# Token caching directory
+.selander_bridge/
+
+# Google OAuth secrets
+client_secret_*.json
+client_secret.json
+
+# Python caches
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+*.egg-info/
