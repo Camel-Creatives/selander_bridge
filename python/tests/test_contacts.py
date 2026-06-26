@@ -21,7 +21,7 @@ def main():
     )
 
     # Use a dummy email or your actual email as the account key for token caching
-    account_key = "itslugenge96@gmail.com" 
+    account_key = "account1@gmail.com" 
     
     print("Initializing Contacts Client...")
     print("If this is your first time, a browser window will open for you to log in.")

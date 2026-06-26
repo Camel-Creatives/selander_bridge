@@ -1,14 +1,31 @@
 # Token caching directory
 .selander_bridge/
 
-# Google OAuth secrets
+# Google OAuth secrets (NEVER COMMIT)
 client_secret_*.json
 client_secret.json
+python/client_secret_*.json
+go/client_secret_*.json
+credentials.json
+token.json
 
-# Python caches
-__pycache__/
-*.py[cod]
-.pytest_cache/
-.venv/
-venv/
-*.egg-info/
+# Python
+python/__pycache__/
+python/*.py[cod]
+python/.pytest_cache/
+python/.venv/
+python/venv/
+python/*.egg-info/
+python/dist/
+python/build/
+
+# Go
+go/bin/
+go/pkg/
+go/*.exe
+go/*.exe~
+go/*.dll
+go/*.so
+go/*.dylib
+go/*.test
+go/*.out
