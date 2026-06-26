@@ -1,7 +1,7 @@
 import os
 import sys
 
-from selander_bridge import GoogleAuthManager, DriveClient, SCOPE_DRIVE_READONLY
+from selander_bridge import GoogleAuthManager, DriveClient
 
 def main():
     secret_file = "client_secret_257045456484-qa159gispleepeepgnseujhtrfa59hpq.apps.googleusercontent.com.json"
@@ -19,7 +19,7 @@ def main():
     # Initialize the auth manager. We only need read-only access for this test.
     auth = GoogleAuthManager(
         client_secrets_file=secret_path,
-        scopes=[SCOPE_DRIVE_READONLY],
+        scopes=[*DriveClient.scopes],
     )
 
     account_key = "itslugenge96@gmail.com" 
